@@ -37,9 +37,6 @@ spec:
         scheduler.alpha.kubernetes.io/tolerations: '[{"key":"CriticalAddonsOnly", "operator":"Exists"}]'
         {{- end }}
     spec:
-      {{- if .Values.isClusterService }}
-      dnsPolicy: Default
-      {{- end }}
       containers:
       - name: "coredns"
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -82,3 +79,6 @@ spec:
             items:
             - key: Corefile
               path: Corefile
+    {{- if .Values.isClusterService }}
+      dnsPolicy: Default
+    {{- end }}
